@@ -1,6 +1,15 @@
-import { Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EventDto } from 'src/dtos/event.dto';
 
 @Controller('events')
 export class EventsController {
@@ -9,8 +18,8 @@ export class EventsController {
     private readonly repository: Repository<Event>,
   ) {}
   @Get()
-  findAll() {
-    return this.repository.find();
+  async findAll() {
+    return await this.repository.find();
   }
 
   @Get(':id')
@@ -19,7 +28,7 @@ export class EventsController {
     return event;
   }
   @Post()
-  addEvent() {
+  async addEvent(@Body body: EventDto) {
     return {};
   }
   @Put()

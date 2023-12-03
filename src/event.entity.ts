@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Event {
@@ -12,7 +12,7 @@ export class Event {
   @Column()
   description: string;
 
-  @Column({ name: 'when_date' })
+  @CreateDateColumn ({ name: 'when_date' })
   when: Date;
 
   @Column()
