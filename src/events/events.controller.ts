@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EventDto } from 'src/dtos/event.dto';
+// import { EventDto } from 'src/dtos/event.dto';
 
 @Controller('events')
 export class EventsController {
@@ -28,8 +28,9 @@ export class EventsController {
     return event;
   }
   @Post()
-  async addEvent(@Body body: EventDto) {
-    return {};
+  async addEvent(@Body() body: Partial<Event>) {
+    const event = await this.repository.save(body);
+    return event;
   }
   @Put()
   updateEvent() {

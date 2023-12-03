@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventsController } from './events/events.controller';
 import { EventsService } from './events/events.service';
 import { EventsModule } from './events/events.module';
+import { Event } from './event.entity';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { EventsModule } from './events/events.module';
       password: 'root',
       database: 'nest-events',
       synchronize: true,
-      entities: ['dist/**/*.entity{.ts,.js}'],
+      entities: [Event],
+      // entities: ['dist/**/*.entity{.ts,.js}'],
     }),
     EventsModule,
   ],
