@@ -53,15 +53,8 @@ export class EventsController {
   }
 
   @Post()
-  async addEvent(@Body() { name, description, address }: EventDto) {
-    return { name, description, address };
-    // return await this.repository.save({
-    //   ...{
-    //     name,
-    //     description,
-    //     address,
-    //   },
-    // });
+  async addEvent(@Body() body: EventDto) {
+    return await this.repository.save(body);
   }
   @Put(':id')
   async updateEvent(@Body() body: EventToUpdateDto, @Param('id') id) {
