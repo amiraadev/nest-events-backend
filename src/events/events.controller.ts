@@ -53,10 +53,15 @@ export class EventsController {
   }
 
   @Post()
-  async addEvent(@Body() body: EventDto) {
-    return await this.repository.save({
-      ...body,
-    });
+  async addEvent(@Body() { name, description, address }: EventDto) {
+    return { name, description, address };
+    // return await this.repository.save({
+    //   ...{
+    //     name,
+    //     description,
+    //     address,
+    //   },
+    // });
   }
   @Put(':id')
   async updateEvent(@Body() body: EventToUpdateDto, @Param('id') id) {
@@ -73,8 +78,20 @@ export class EventsController {
       when: new Date(),
     });
   }
-  @Delete()
-  removeEvent() {
-    return {};
+  @Delete(':id')
+  async removeEvent(@Param('id') id) {
+    const event = await this.repository.findOne({
+      where: { id },
+      select: ['id', 'name', 'description', 'address', 'when'],
+    });
+    if (!event) {
+      throw new NotFoundException('No event found matching this id.');
+    }
+    const deletedEvent = await this.repository.delete(id);
+
+    return {
+      message: 'Event deleted successfully',
+      deletedEvent,
+    };
   }
 }
