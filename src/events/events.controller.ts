@@ -43,12 +43,18 @@ export class EventsController {
   }
   @Put(':id')
   async updateEvent(@Body() body: EventToUpdateDto, @Param('id') id) {
-    const event = await this.repository.findOne(id);
-    return event;
-    // return await this.repository.save({
-    //   ...event,
-    //   ...body,
-    // });
+    const event = await this.repository.findOne({
+      where: { id },
+      select: ['id', 'name', 'description', 'address', 'when'],
+    });
+    if (!event) {
+      throw new NotFoundException('No event found matching this id.');
+    }
+    return await this.repository.save({
+      ...event,
+      ...body,
+      when: new Date(),
+    });
   }
   @Delete()
   removeEvent() {
