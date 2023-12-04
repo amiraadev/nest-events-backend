@@ -8,7 +8,7 @@ import {
   Body,
   NotFoundException,
 } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Like, MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventDto, EventToUpdateDto } from 'src/dtos/event.dto';
 import { EventEntity } from 'src/event.entity';
@@ -35,6 +35,23 @@ export class EventsController {
     }
     return event;
   }
+  @Get('practice/test')
+  async find() {
+    const event = await this.repository.find({
+      select: ['id', 'name', 'description', 'address', 'when'],
+      where: [
+        { id: MoreThan(1) },
+        { name: Like('%nira%') },
+        { when: MoreThan(new Date('2021-02-12T13:00:00')) },
+      ],
+      take: 2,
+      order: {
+        id: 'DESC',
+      },
+    });
+    return event;
+  }
+
   @Post()
   async addEvent(@Body() body: EventDto) {
     return await this.repository.save({
@@ -59,11 +76,5 @@ export class EventsController {
   @Delete()
   removeEvent() {
     return {};
-  }
-
-  @Get('/practice')
-  async find(@Param('id') id) {
-    const event = await this.repository.findOne(id);
-    return event;
   }
 }
