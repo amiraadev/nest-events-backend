@@ -5,12 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventsController } from './events/events.controller';
 import { EventsService } from './events/events.service';
 import { EventsModule } from './events/events.module';
-import { Event } from './event.entity';
+import { EventEntity } from './event.entity';
 
 @Module({
   imports: [
     EventsModule,
-    TypeOrmModule.forFeature([Event]),
+    TypeOrmModule.forFeature([EventEntity]),
     TypeOrmModule.forRoot({
       type: 'postgres',
       port: 5432,
@@ -19,7 +19,7 @@ import { Event } from './event.entity';
       password: 'root',
       database: 'nest-events',
       synchronize: true,
-      entities: [Event],
+      entities: [EventEntity],
       // entities: ['dist/**/*.entity{.ts,.js}'],
     }),
     EventsModule,

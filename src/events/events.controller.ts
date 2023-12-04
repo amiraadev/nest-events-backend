@@ -10,12 +10,13 @@ import {
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventDto } from 'src/dtos/event.dto';
+import { EventEntity } from 'src/event.entity';
 
 @Controller('events')
 export class EventsController {
   constructor(
-    @InjectRepository(Event)
-    private readonly repository: Repository<Event>,
+    @InjectRepository(EventEntity)
+    private readonly repository: Repository<EventEntity>,
   ) {}
   @Get()
   async findAll() {
@@ -29,11 +30,9 @@ export class EventsController {
   }
   @Post()
   async addEvent(@Body() body: EventDto) {
-    const event = await this.repository.save({
+    return await this.repository.save({
       ...body,
-      when: new Date(),
     });
-    return event;
   }
   @Put()
   updateEvent() {
@@ -42,5 +41,11 @@ export class EventsController {
   @Delete()
   removeEvent() {
     return {};
+  }
+
+  @Get('/practice')
+  async find(@Param('id') id) {
+    const event = await this.repository.findOne(id);
+    return event;
   }
 }

@@ -2,7 +2,7 @@
 import { Entity, PrimaryGeneratedColumn, Column,CreateDateColumn } from 'typeorm';
 
 @Entity()
-export class Event {
+export class EventEntity  {
   @PrimaryGeneratedColumn()
   id: number;
 
