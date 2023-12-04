@@ -3,6 +3,9 @@ export class EventDto {
   name: string;
   description: string;
   address: string;
-  when: Date;
-  id: number;
+}
+export class EventToUpdateDto {
+  name?: string;
+  description?: string;
+  address?: string;
 }
