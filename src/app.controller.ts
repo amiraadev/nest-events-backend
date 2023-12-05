@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
   @Get()
   sayHello() {
-    // return this.appService.getHello();
-    return process.env;
+    return this.appService.getHello();
+    // return process.env;
   }
 }
