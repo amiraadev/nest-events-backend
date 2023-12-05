@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
 import ormConfig from './config/orm.config';
 import { AttendeeEntity } from './attendee.entity';
 import { AttendeeController } from './attendee/attendee.controller';
+import { AttendeeModule } from './attendee/attendee.module';
 
 @Module({
   imports: [
@@ -22,11 +23,12 @@ import { AttendeeController } from './attendee/attendee.controller';
       load: [ormConfig],
       expandVariables: true,
     }),
-    TypeOrmModule.forFeature([EventEntity]),
+    TypeOrmModule.forFeature([EventEntity, AttendeeEntity]),
     TypeOrmModule.forRootAsync({
       useFactory: ormConfig,
     }),
     EventsModule,
+    AttendeeModule,
   ],
   controllers: [AppController, EventsController, AttendeeController],
   // providers: [AppService, EventsService],

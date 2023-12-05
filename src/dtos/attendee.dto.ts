@@ -11,8 +11,8 @@ export class AttendeeDto {
   @IsString()
   name: string;
 
-  @IsDate()
-  when: Date;
+  // @IsDate()
+  // when: Date;
 
   @IsNotEmpty()
   @IsString()

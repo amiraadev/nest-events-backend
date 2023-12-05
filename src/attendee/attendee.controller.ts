@@ -1,6 +1,7 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AttendeeEntity } from 'src/attendee.entity';
+import { AttendeeDto } from 'src/dtos/attendee.dto';
 import { Repository } from 'typeorm';
 
 @Controller('attendee')
@@ -14,7 +15,9 @@ export class AttendeeController {
     return await this.repository.find();
   }
   @Post()
-  async addAttendee() {
-    return await this.repository.find();
+  async addAttendee(@Body() body: AttendeeDto) {
+    return await this.repository.save({
+      ...body,
+    });
   }
 }
