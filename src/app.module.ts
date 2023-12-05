@@ -7,6 +7,7 @@ import { EventsService } from './events/events.service';
 import { EventsModule } from './events/events.module';
 import { EventEntity } from './event.entity';
 import { AppArabService } from './appArab.service';
+import { dummyFactoryClass } from './app.dummy';
 
 @Module({
   imports: [
@@ -37,6 +38,12 @@ import { AppArabService } from './appArab.service';
       provide: 'APP_NAME',
       useValue: 'test another custom provider',
     },
+    {
+      provide: 'FACTORY_DUMMY_CLASS',
+      inject: [dummyFactoryClass],
+      useFactory: (app) => `${app.dummy()}`,
+    },
+    dummyFactoryClass,
   ],
 })
 export class AppModule {}
