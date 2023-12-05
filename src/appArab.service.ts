@@ -1,9 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Inject,Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppArabService {
-  getHello(): string {
-    return 'مرحبا بك';
+    constructor(
+        @Inject('APP_NAME')
+        private readonly name: string
+    ){}
+    getHello(): string {
+    return `مرحبا بك we are trying to ${this.name}`;
   }
 }

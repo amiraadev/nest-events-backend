@@ -33,6 +33,10 @@ import { AppArabService } from './appArab.service';
       provide: AppService,
       useClass: AppArabService,
     },
+    {
+      provide: 'APP_NAME',
+      useValue: 'test another custom provider',
+    },
   ],
 })
 export class AppModule {}
