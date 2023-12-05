@@ -21,7 +21,7 @@ export class AttendeeEntity  {
   })
   @JoinColumn({
     name:'event_id',
-    referencedColumnName: 'secondary'
+    referencedColumnName: 'id'
   })
   event: EventEntity;
 }

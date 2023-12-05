@@ -10,10 +10,13 @@ import { AppArabService } from './appArab.service';
 import { dummyFactoryClass } from './app.dummy';
 import { ConfigModule } from '@nestjs/config';
 import ormConfig from './config/orm.config';
+import { AttendeeEntity } from './attendee.entity';
+import { AttendeeController } from './attendee/attendee.controller';
 
 @Module({
   imports: [
     EventsModule,
+    AttendeeEntity,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [ormConfig],
@@ -25,7 +28,7 @@ import ormConfig from './config/orm.config';
     }),
     EventsModule,
   ],
-  controllers: [AppController, EventsController],
+  controllers: [AppController, EventsController, AttendeeController],
   // providers: [AppService, EventsService],
   providers: [
     EventsService,

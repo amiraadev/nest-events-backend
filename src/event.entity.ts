@@ -19,6 +19,8 @@ export class EventEntity  {
   @Column()
   address: string;
 
-  @OneToMany(()=> AttendeeEntity,(attendee)=> attendee.event)
+  @OneToMany(()=> AttendeeEntity,(attendee)=> attendee.event,{
+    eager: true
+  })
   attendees: AttendeeEntity[];
 }

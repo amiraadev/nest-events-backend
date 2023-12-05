@@ -28,7 +28,13 @@ export class EventsController {
     this.logger.debug(`found ${events.length} events`);
     return events;
   }
-
+  @Get('practice/test2')
+  async practice2() {
+    return await this.repository.findOne({
+      where: { id: 1 },
+      loadEagerRelations: false,
+    });
+  }
   @Get(':id')
   async findOneById(@Param('id') id) {
     const event = await this.repository.findOne({
