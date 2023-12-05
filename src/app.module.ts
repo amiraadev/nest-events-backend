@@ -9,22 +9,18 @@ import { EventEntity } from './event.entity';
 import { AppArabService } from './appArab.service';
 import { dummyFactoryClass } from './app.dummy';
 import { ConfigModule } from '@nestjs/config';
+import ormConfig from './config/orm.config';
 
 @Module({
   imports: [
     EventsModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [ormConfig],
+    }),
     TypeOrmModule.forFeature([EventEntity]),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      port: Number(process.env.DB_PORT),
-      host: process.env.DB_HOST,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-      synchronize: true,
-      entities: [EventEntity],
-      // entities: ['dist/**/*.entity{.ts,.js}'],
+    TypeOrmModule.forRootAsync({
+      useFactory: ormConfig,
     }),
     EventsModule,
   ],
