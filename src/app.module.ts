@@ -8,10 +8,12 @@ import { EventsModule } from './events/events.module';
 import { EventEntity } from './event.entity';
 import { AppArabService } from './appArab.service';
 import { dummyFactoryClass } from './app.dummy';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     EventsModule,
+    ConfigModule.forRoot(),
     TypeOrmModule.forFeature([EventEntity]),
     TypeOrmModule.forRoot({
       type: 'postgres',
