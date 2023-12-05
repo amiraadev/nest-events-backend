@@ -6,6 +6,7 @@ import { EventsController } from './events/events.controller';
 import { EventsService } from './events/events.service';
 import { EventsModule } from './events/events.module';
 import { EventEntity } from './event.entity';
+import { AppArabService } from './appArab.service';
 
 @Module({
   imports: [
@@ -25,6 +26,13 @@ import { EventEntity } from './event.entity';
     EventsModule,
   ],
   controllers: [AppController, EventsController],
-  providers: [AppService, EventsService],
+  // providers: [AppService, EventsService],
+  providers: [
+    EventsService,
+    {
+      provide: AppService,
+      useClass: AppArabService,
+    },
+  ],
 })
 export class AppModule {}
