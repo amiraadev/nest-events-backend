@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   NotFoundException,
+  Logger,
 } from '@nestjs/common';
 import { Like, MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -15,13 +16,17 @@ import { EventEntity } from 'src/event.entity';
 
 @Controller('events')
 export class EventsController {
+  private readonly logger = new Logger(EventsController.name);
   constructor(
     @InjectRepository(EventEntity)
     private readonly repository: Repository<EventEntity>,
   ) {}
   @Get()
   async findAll() {
-    return await this.repository.find();
+    this.logger.log(`Hit the findAll route`);
+    const events = await this.repository.find();
+    this.logger.debug(`found ${events.length} events`);
+    return events;
   }
 
   @Get(':id')

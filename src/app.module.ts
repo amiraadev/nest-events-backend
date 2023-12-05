@@ -17,6 +17,7 @@ import ormConfig from './config/orm.config';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [ormConfig],
+      expandVariables: true,
     }),
     TypeOrmModule.forFeature([EventEntity]),
     TypeOrmModule.forRootAsync({
